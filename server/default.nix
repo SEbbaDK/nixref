@@ -20,13 +20,13 @@ in
   buildInputs = [ openssl openssl.out ];
   src = pkgs.runCommand "source" { } ''
     mkdir $out
-    ln -s ${./shard.yml} $out/
-    ln -s ${./server.cr} $out/
+    ln -s ${./shard.yml} $out/shard.yml
+    ln -s ${./server.cr} $out/server.cr
   '';
 
   format = "shards";
   lockFile = ./shard.lock;
-  #shardsFile = ./shards.nix;
+  shardsFile = ./shards.nix;
 
   # Disable tests until they work
   doCheck = false;
