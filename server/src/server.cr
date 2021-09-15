@@ -14,10 +14,10 @@ end
 
 resources = [ExampleResource.new()]
 
-post "/search" do |env|
-    request = Request.from_json env.request.body.not_nil!
+get "/search/:query" do |env|
+    query = env.params.url["query"].not_nil!
     results = [] of SearchResult
-    resources.each { |x| results += x.search(request.text) }
+    resources.each { |x| results += x.search(query) }
     {results: results}.to_json
 end
 
