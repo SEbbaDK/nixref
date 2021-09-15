@@ -21,7 +21,7 @@ in
   src = pkgs.runCommand "source" { } ''
     mkdir $out
     ln -s ${./shard.yml} $out/shard.yml
-    ln -s ${./server.cr} $out/server.cr
+    ln -s ${./src} $out/src
   '';
 
   format = "shards";

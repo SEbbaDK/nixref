@@ -13,6 +13,6 @@ dependencies:
 
 targets:
     nixref:
-        main: server.cr
+        main: src/server.cr
 
 license: GPLv3
