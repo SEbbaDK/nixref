@@ -3,13 +3,11 @@ require "./resource.cr"
 require "./example_resource.cr"
 
 get "/" do
-    "online"
-end
-
-class Request
-  include JSON::Serializable
-
-  property text : String
+    if ARGV[0]?.nil?
+        "online"
+    else
+        File.read(ARGV[0])
+    end
 end
 
 resources = {} of String => Resource
