@@ -19,7 +19,6 @@ end
 
 resources = addResource(resources, ExampleResource.new())
 
-
 get "/:resource_name/:url" do |env|
     resource_name = env.params.url["resource_name"].not_nil!
     url = env.params.url["url"].not_nil!
@@ -31,7 +30,7 @@ get "/search/:query" do |env|
     query = env.params.url["query"].not_nil!
     results = [] of SearchResult
     resources.each { |x| results += x[1].search(query) }
-    {results: results}.to_json
+    results.to_json
 end
 
 puts "Started"
