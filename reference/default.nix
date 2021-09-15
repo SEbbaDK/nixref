@@ -15,18 +15,24 @@ let
 in
 mkDerivation {
     name = "nixref-ref";
-	src = runCommand "nixref-ref" {} ''
-		mkdir $out
-		ln -s ${nixpkgs-src} $out/nixpkgs
-	'';
+	src = ./.;
 
-	dontInstall = true;
-	buildPhase = builtins.concatStringsSep "\n" ([
-    	"echo test"
-    	"mkdir $out"
-	] ++ (map (s: "mkdir \"$out/${s}\"") libFuncs));
+    buildInputs = with pkgs; [
+        gcc
+    ];
+
+	dontFixup = true;
+    buildPhase = ''
+        gcc $src/parse.c
+        cat ${nixpkgs-src}/lib/*.nix | ./a.out > ref.json
+        '';
+
+    installPhase = ''
+        mkdir -p $out
+        cp ref.json $out/ref.json
+    '';
 
 	shellHook = ''
-		NIXPKGS-SRC=${nixpkgs-src}
+		export NIXPKGS_SRC="${nixpkgs-src}"
 	'';
 }
