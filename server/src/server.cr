@@ -4,7 +4,7 @@ require "./example_resource.cr"
 
 get "/" do
     if ARGV[0]?.nil?
-        "online"
+        "Online"
     else
         File.read(ARGV[0])
     end
